@@ -51,29 +51,44 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let isUserActivelyUsing = frontAppName.contains("discord") || frontAppName.contains("beeper")
 
-        if isDiscordOrBeeperRunning && isUserActivelyUsing && isMicrophoneInUse() {
-            print("[💬] Discord ou Beeper utilisé activement avec micro actif. Allumage de la lampe.")
-            self.triggerLamp()
+        if isMicrophoneInUse() {
+            self.micro()
         } else if isDiscordOrBeeperRunning && isUserActivelyUsing {
-            print("[🕶] Discord ou Beeper avec micro inactif. Extinction de la lampe.")
-            self.turnOffLamp()
+            self.sharingScreen()
         } else {
-            print("[🕶] Aucun app ciblé activement utilisée ou micro inactif. Extinction de la lampe.")
-            self.turnOffLamp()
+            self.turnOff()
         }
     }
 
-    func triggerLamp() {
+    func camera() {
         let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/python3")
-        process.arguments = ["/Users/ton_nom/Documents/busylight/allume_lampe.py"]
+        process.executableURL = URL(fileURLWithPath: "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3")
+        process.arguments = ["/Users/thomasconchon/Documents/Dev/Xcode/Notification/Notification/Script/Camera.py"]
+        try? process.run()
+    }
+    func micro() {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3")
+        process.arguments = ["/Users/thomasconchon/Documents/Dev/Xcode/Notification/Notification/Script/Micro.py"]
+        try? process.run()
+    }
+    func doNotDisturb() {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3")
+        process.arguments = ["/Users/thomasconchon/Documents/Dev/Xcode/Notification/Notification/Script/DoNotDisturb.py"]
+        try? process.run()
+    }
+    func sharingScreen() {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3")
+        process.arguments = ["/Users/thomasconchon/Documents/Dev/Xcode/Notification/Notification/Script/SharingScreen.py"]
         try? process.run()
     }
 
-    func turnOffLamp() {
+    func turnOff() {
         let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/python3")
-        process.arguments = ["/Users/ton_nom/Documents/busylight/eteint_lampe.py"]
+        process.executableURL = URL(fileURLWithPath: "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3")
+        process.arguments = ["/Users/thomasconchon/Documents/Dev/Xcode/Notification/Notification/Script/off.py"]
         try? process.run()
     }
 
