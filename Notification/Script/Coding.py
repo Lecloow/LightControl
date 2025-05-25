@@ -2,4 +2,4 @@ from busylight.lights.embrava import Blynclight
 
 light = Blynclight.first_light()
 
-light.on((30, 255, 40))
+light.on((255, 0, 0))
